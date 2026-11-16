@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>АвтоСервис CRM</title>
+</head>
+<body style="margin:0">
+<!-- prototype -->
+<div id="autoservice">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+#autoservice{--nav:#101c30;--ink:#16253b;--muted:#53647a;--line:#e0e7ef;--base:#f0f4f8;--white:#fff;--teal:#006c61;--mint:#6ae5ca;font:14px/1.5 Inter,system-ui,sans-serif;color:var(--ink);background:var(--base);container-type:inline-size;text-align:left}
+#autoservice *{box-sizing:border-box}
+#autoservice [hidden]{display:none!important}
+#autoservice h1,#autoservice h2,#autoservice h3,#autoservice p{margin:0}
+#autoservice h1{font-size:clamp(24px,4cqw,36px);line-height:1.14;letter-spacing:-.045em}
+#autoservice h2{font-size:17px;letter-spacing:-.025em}
+#autoservice small,#autoservice .muted{color:var(--muted)}
+#autoservice small{font-size:12px;display:block}
+#autoservice button,#autoservice input,#autoservice select,#autoservice textarea{font:inherit}
+#autoservice button{cursor:pointer}
+#autoservice :focus-visible{outline:3px solid #1478c5;outline-offset:3px}
+#autoservice .shell{display:grid;grid-template-columns:200px minmax(0,1fr);min-height:740px}
+#autoservice .rail{background:var(--nav);color:white;padding:24px 14px;display:flex;flex-direction:column;gap:34px}
+#autoservice .brand{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:800;line-height:1.15;padding:0 5px;white-space:nowrap}
+#autoservice .brand small{color:#a9bbd2;letter-spacing:.12em;font-size:10px;margin-top:5px}
+#autoservice .mark{display:grid;place-items:center;width:34px;height:34px;flex:none;background:var(--mint);border-radius:9px}
+#autoservice .mark::before{content:"";width:15px;height:14px;border:solid var(--nav);border-width:0 3px 3px 0;transform:skewX(-26deg);box-shadow:5px -5px 0 -2px var(--mint),7px -7px 0 -2px var(--nav)}
+#autoservice nav{display:grid;gap:5px}
+#autoservice nav button{border:0;border-radius:8px;color:#bccbe0;text-align:left;background:transparent;padding:11px 10px;white-space:nowrap;font-weight:600}
+#autoservice nav button:hover,#autoservice nav button[aria-current="page"]{background:#20334e;color:#fff}
+#autoservice nav button[aria-current="page"]{box-shadow:inset 3px 0 var(--mint)}
+#autoservice .nav-icon{display:inline-block;width:23px;color:var(--mint);font-size:16px}
+#autoservice .workshop{margin-top:auto;border-top:1px solid #30425b;padding:14px 6px 0;color:#cbd7e7}
+#autoservice .workshop small{color:#a9bbd2}
+#autoservice .top{background:white;border-bottom:1px solid var(--line);padding:11px 26px;display:flex;justify-content:space-between;align-items:center;gap:8px;min-height:57px}
+#autoservice .top strong{font-size:13px}
+#autoservice .demo{font-size:11px;color:#475972;background:#eef3f8;padding:4px 8px;border-radius:5px;white-space:nowrap}
+#autoservice main{max-width:1500px;margin:auto;padding:24px 26px 30px;display:grid;gap:16px}
+#autoservice .heading,#autoservice .panel-head,#autoservice .actions,#autoservice .filters{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+#autoservice .heading p{margin-top:6px}
+#autoservice .action{border:1px solid #cbd7e4;border-radius:8px;background:white;color:var(--ink);padding:9px 13px;font-weight:650;min-height:40px}
+#autoservice .action:hover{border-color:var(--teal);color:var(--teal)}
+#autoservice .primary{background:var(--teal);color:#fff;border-color:var(--teal)}
+#autoservice .primary:hover{background:#00564e;color:white}
+#autoservice .text-link{border:0;background:none;color:var(--teal);font-weight:750;padding:4px 0;text-align:left}
+#autoservice .text-link:hover{text-decoration:underline}
+#autoservice .hero{overflow:hidden;position:relative;isolation:isolate;background:linear-gradient(115deg,#142640,#1b3b57);border-radius:14px;padding:22px;color:white;display:flex;justify-content:space-between;align-items:center;gap:14px}
+#autoservice .hero::before{content:"";position:absolute;inset:0 0 0 48%;z-index:-1;background:repeating-linear-gradient(125deg,transparent 0 15px,#97bbd41f 16px 17px);mask-image:linear-gradient(90deg,transparent,#000)}
+#autoservice .hero small{color:#bbd0e4}
+#autoservice .hero h2{font-size:24px;margin:3px 0}
+#autoservice .hero .label{color:var(--mint);font-size:11px;font-weight:750;letter-spacing:.14em;text-transform:uppercase}
+#autoservice .hero .action{background:var(--mint);border-color:var(--mint);color:#102b38}
+#autoservice .kpis{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+#autoservice .panel,#autoservice .kpi{border:1px solid var(--line);border-radius:12px;background:white;padding:16px;min-width:0;box-shadow:0 2px 4px #13243c05}
+#autoservice .kpi{padding:13px}
+#autoservice .kpi strong{display:block;font-size:clamp(19px,2.7cqw,30px);letter-spacing:-.045em;line-height:1.2;margin:6px 0;font-variant-numeric:tabular-nums;white-space:nowrap}
+#autoservice .kpi [data-kpi="receivedToday"],#autoservice .kpi [data-kpi="totalDebt"],#autoservice .kpi [data-finance-debt],#autoservice .kpi [data-finance-received]{white-space:normal;overflow-wrap:anywhere}
+#autoservice .kpi .warn{color:#9d3e29}
+#autoservice .duo{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:14px}
+#autoservice .chart{height:118px;margin-top:14px;display:grid;grid-template-columns:repeat(7,1fr);gap:6px;background:repeating-linear-gradient(to top,transparent 0 23px,#eef2f6 23px 24px)}
+#autoservice .day{height:118px;display:flex;flex-direction:column;justify-content:end;align-items:center;gap:3px;font-size:11px;color:var(--muted)}
+#autoservice .bar{height:calc(var(--n) * 64px);width:min(24px,70%);background:#a5d9d1;border-radius:4px 4px 0 0}
+#autoservice .day:last-child .bar{background:var(--teal)}
+#autoservice .chart-empty{margin-top:12px!important}
+#autoservice .distribution{display:grid;gap:8px;margin-top:12px}
+#autoservice .distribution div{display:grid;grid-template-columns:minmax(80px,1fr) 1fr minmax(18px,auto);gap:5px;align-items:center;font-size:12px}
+#autoservice .track{height:6px;background:#eaf0f5;border-radius:8px}
+#autoservice .track i{display:block;height:100%;width:var(--p);background:var(--tone);border-radius:inherit}
+#autoservice .order-table{padding:0;overflow:hidden}
+#autoservice .order-table .panel-head,#autoservice .filters{padding:13px 16px}
+#autoservice table{width:100%;border-collapse:collapse;text-align:left;font-size:13px}
+#autoservice th{color:#495d76;background:#f6f8fb;font-size:11px;white-space:nowrap}
+#autoservice th,#autoservice td{padding:9px 12px;border-top:1px solid var(--line);vertical-align:middle}
+#autoservice td strong{font-weight:650}
+#autoservice .sum{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+#autoservice .dashboard-detail{text-align:right}
+#autoservice .mobile-detail{display:none}
+#autoservice .status{display:inline-flex;align-items:center;gap:5px;padding:3px 7px;border-radius:5px;white-space:nowrap;font-size:11px;font-weight:700;background:var(--tag-bg);color:var(--tag-ink)}
+#autoservice .status::before{content:"";width:6px;height:6px;background:currentColor;border-radius:50%}
+#autoservice .cancelled{--tag-bg:#ffeae6;--tag-ink:#8d3021}
+#autoservice .record-list{display:grid;gap:8px;margin-top:12px}
+#autoservice .record-row{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:8px;overflow-wrap:anywhere}
+#autoservice .check{display:flex;align-items:center;gap:8px}
+#autoservice .check input{width:18px;min-height:18px}
+#autoservice a.action{display:inline-block;text-decoration:none}
+#autoservice .workshop{overflow-wrap:anywhere}
+#autoservice .work{--tag-bg:#e7efff;--tag-ink:#204f9b}
+#autoservice .ready{--tag-bg:#dff5eb;--tag-ink:#11624d}
+#autoservice .wait{--tag-bg:#fff0d6;--tag-ink:#845000}
+#autoservice .new{--tag-bg:#eee9fc;--tag-ink:#63439b}
+#autoservice .closed{--tag-bg:#eaf0f6;--tag-ink:#43536a}
+#autoservice .filters{justify-content:start}
+#autoservice label{display:grid;gap:4px;font-weight:600;font-size:13px;min-width:0}
+#autoservice input,#autoservice select,#autoservice textarea{border:1px solid #cbd7e4;border-radius:8px;background:white;color:var(--ink);min-height:41px;padding:8px 10px;width:100%;min-width:0}
+#autoservice textarea{resize:vertical}
+#autoservice .search{flex:1 1 215px}
+#autoservice .filter{flex:0 1 170px}
+#autoservice .result{padding:9px 16px;border-top:1px solid var(--line)}
+#autoservice .fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:12px}
+#autoservice .span{grid-column:1/-1}
+#autoservice .stack{display:grid;align-content:start;gap:14px}
+#autoservice .order-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(190px,.48fr);gap:14px}
+#autoservice .receipt{align-self:start;display:grid;gap:10px}
+#autoservice .receipt p{display:flex;justify-content:space-between;gap:8px}
+#autoservice .receipt .total{border-top:1px solid var(--line);padding-top:10px;font-size:18px;font-weight:750}
+#autoservice .line-items{display:grid;gap:7px;margin-top:10px}
+#autoservice .line-items p{display:flex;justify-content:space-between;gap:10px}
+#autoservice .profile{display:flex;align-items:center;gap:13px}
+#autoservice .avatar{background:#d8f1ea;color:#075c51;border-radius:12px;width:50px;height:50px;display:grid;place-items:center;font-weight:800;flex:none}
+#autoservice .details{display:grid;gap:8px;margin-top:12px;overflow-wrap:anywhere}
+#autoservice .car{border-top:1px solid var(--line);padding-top:10px;margin-top:10px}
+#autoservice .notice{padding:10px 13px;background:#e0f4ed;color:#075c51;border-radius:8px;overflow-wrap:anywhere}
+#autoservice .notice.error{background:#ffeae6;color:#8d3021}
+#autoservice .notice-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+#autoservice .notice-row:not(:has(:not([hidden]))){display:none}
+#autoservice .item-row{display:grid;grid-template-columns:1fr 1.6fr 1fr auto;gap:8px;align-items:end}
+#autoservice .receipt .action:disabled{opacity:.65;cursor:wait}
+@container (max-width:820px){
+ #autoservice .shell{grid-template-columns:157px minmax(0,1fr)}
+ #autoservice .rail{padding-inline:9px}
+ #autoservice main,#autoservice .top{padding-inline:15px}
+ #autoservice .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+ #autoservice th,#autoservice td{padding-inline:7px}
+}
+@container (max-width:670px){
+ #autoservice .shell{display:block;min-height:0}
+ #autoservice .rail{padding:12px;gap:10px}
+ #autoservice nav{display:flex;flex-wrap:wrap;gap:3px}
+ #autoservice nav button{padding:8px;min-height:44px;font-size:12px}
+ #autoservice .nav-icon,#autoservice .workshop{display:none}
+ #autoservice nav button[aria-current="page"]{box-shadow:inset 0 -2px var(--mint)}
+ #autoservice main{padding:15px 12px;gap:12px}
+ #autoservice .top{min-height:42px}
+ #autoservice .action{min-height:44px}
+ #autoservice input,#autoservice select,#autoservice textarea{font-size:16px;min-height:44px}
+}
+@container (max-width:525px){
+ #autoservice .duo,#autoservice .order-grid,#autoservice .fields{grid-template-columns:minmax(0,1fr)}
+ #autoservice .item-row{grid-template-columns:repeat(2,minmax(0,1fr))}
+ #autoservice .hero{align-items:start;flex-direction:column;padding:15px}
+ #autoservice .panel{padding:13px}
+ #autoservice .order-table{padding:0}
+ #autoservice table,#autoservice tbody,#autoservice tr,#autoservice td{display:block}
+ #autoservice thead{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+ #autoservice tbody tr{padding:10px 13px;border-top:1px solid var(--line);display:grid;grid-template-columns:minmax(0,1fr) auto;gap:5px 10px;align-items:center}
+ #autoservice td{border:0;padding:0;overflow-wrap:anywhere}
+ #autoservice td:nth-child(2){grid-row:2;grid-column:1/-1}
+ #autoservice td:nth-child(3){grid-row:3;grid-column:1/-1}
+ #autoservice td:nth-child(4){grid-row:1;grid-column:2;text-align:right}
+ #autoservice td:nth-child(5){grid-row:4;grid-column:2}
+ #autoservice td.dashboard-detail{grid-column:1/-1;text-align:left}
+ #autoservice .mobile-detail{display:inline;color:var(--muted)}
+ #autoservice td .text-link{min-height:44px}
+}
+</style>
+<div class="shell">
+  <aside class="rail">
+    <div class="brand"><span class="mark" aria-hidden="true"></span><div>АвтоСервис<small>CRM · ТЕХЦЕНТР</small></div></div>
+    <nav aria-label="Разделы">
+      <button type="button" data-screen="home" aria-current="page"><span class="nav-icon" aria-hidden="true">◫</span>Главная</button>
+      <button type="button" data-screen="orders"><span class="nav-icon" aria-hidden="true">▤</span>Заказы</button>
+      <button type="button" data-screen="form"><span class="nav-icon" aria-hidden="true">＋</span>Заказ-наряд</button>
+      <button type="button" data-screen="client"><span class="nav-icon" aria-hidden="true">◎</span>Клиент</button>
+      <button type="button" data-screen="vehicles"><span class="nav-icon" aria-hidden="true">◇</span>Автомобили</button>
+      <button type="button" data-screen="masters"><span class="nav-icon" aria-hidden="true">◈</span>Мастера</button>
+      <button type="button" data-screen="finance"><span class="nav-icon" aria-hidden="true">₽</span>Финансы</button>
+      <button type="button" data-screen="settings"><span class="nav-icon" aria-hidden="true">⚙</span>Настройки</button>
+    </nav>
+    <div class="workshop"><strong data-shop-name>АвтоСервис CRM</strong><small data-shop-contact></small></div>
+  </aside>
+  <div>
+    <header class="top"><strong data-title>Главная</strong><span class="demo">Локальная CRM</span></header>
+    <main>
+      <div class="notice-row"><p class="notice" data-notice role="status" hidden></p><button class="action" type="button" data-retry hidden>Повторить</button></div>
+      <section class="stack" data-view="home">
+        <div class="heading"><div><h1>Рабочий день</h1><p class="muted" data-dashboard-date></p></div></div>
+        <div class="hero">
+          <div><h2>Сервисная зона</h2><small data-today-intake></small></div>
+          <button class="action" type="button" data-new>＋ Новый заказ</button>
+        </div>
+        <div class="kpis" aria-label="Оперативные показатели">
+          <div class="kpi"><small>Открытые заказы</small><strong data-kpi="open">—</strong><small data-kpi-work></small></div>
+          <div class="kpi"><small>Готовы к выдаче</small><strong data-kpi="ready">—</strong></div>
+          <div class="kpi"><small>Просрочены</small><strong data-kpi="overdue">—</strong><small>Среди открытых заказов</small></div>
+          <div class="kpi"><small>Платежи за день</small><strong data-kpi="receivedToday">—</strong><small>Получено сегодня</small></div>
+          <div class="kpi"><small>Общая задолженность</small><strong data-kpi="totalDebt">—</strong><small>Остатки по заказам</small></div>
+        </div>
+        <div class="duo">
+          <section class="panel"><h2>Приёмка за неделю</h2><small data-intake-period></small>
+            <div class="chart" role="img" data-intake-chart hidden></div>
+            <p class="muted chart-empty" data-intake-empty hidden>За этот период заказов не было.</p>
+          </section>
+          <section class="panel"><h2>Открытые по статусам</h2><small data-breakdown-total></small>
+            <div class="distribution" data-breakdown></div>
+          </section>
+        </div>
+        <section class="panel order-table"><div class="panel-head"><h2>Ближайшие выдачи</h2><button type="button" class="text-link" data-screen="orders">Все заказы →</button></div><div data-table="home"></div></section>
+        <section class="panel order-table"><div class="panel-head"><h2>Последние заказы</h2></div><div data-table="recent"></div></section>
+      </section>
+      <section class="stack" data-view="orders" hidden>
+        <div class="heading"><div><h1>Заказы</h1><p class="muted">Заказ-наряды и сроки выдачи</p></div><button type="button" class="action primary" data-new>＋ Новый заказ</button></div>
+        <section class="panel order-table">
+          <div class="filters"><label class="search">Поиск<input type="search" data-search maxlength="150" placeholder="Номер, клиент, авто или госномер"></label>
+          <label class="filter">Статус<select data-filter><option value="">Все статусы</option><option>Принят</option><option>В работе</option><option>Ожидает запчасти</option><option>Готов к выдаче</option><option>Закрыт</option></select></label></div>
+          <div data-table="orders"></div><small class="result" data-count aria-live="polite"></small>
+        </section>
+      </section>
+      <section class="stack" data-view="form" hidden>
+        <div class="heading"><div><button class="text-link" type="button" data-screen="orders">← Заказы</button><h1 data-form-title>Заказ-наряд</h1><p class="muted" data-form-subtitle></p></div></div>
+        <form class="order-grid" data-order-form>
+          <div class="stack">
+            <section class="panel"><h2>Приёмка автомобиля</h2><div class="fields">
+              <label>Клиент <select name="customerId"></select></label>
+              <label data-new-customer>Имя клиента <input required maxlength="150" name="customer" autocomplete="off"></label>
+              <label data-existing-car>Автомобиль <select name="vehicleId"></select></label>
+              <label data-new-car>Марка и модель <input required maxlength="150" name="car" placeholder="Марка и модель" autocomplete="off"></label>
+              <label data-new-plate>Госномер <input maxlength="24" name="plate" placeholder="А123ВС 77" autocomplete="off"></label>
+              <label>Мастер-приёмщик <select name="masterId" required></select></label>
+              <div class="span" data-no-masters hidden><button class="text-link" type="button" data-screen="masters">Добавьте активного мастера в справочнике →</button></div>
+              <label>Обещанная выдача <input required name="due" type="datetime-local"></label>
+              <label>Статус <select name="status"><option>Принят</option><option>В работе</option><option>Ожидает запчасти</option><option>Готов к выдаче</option><option>Закрыт</option></select></label>
+              <label class="span">Обращение клиента <textarea name="complaint" rows="2"></textarea></label>
+            </div></section>
+            <section class="panel"><div class="panel-head"><h2>Работы и запчасти</h2><button class="text-link" type="button" data-add-item>＋ Позиция</button></div><div class="line-items" data-lines></div></section>
+          </div>
+          <aside class="panel receipt" aria-label="Смета">
+            <h2>Смета</h2><p>Работы <strong data-labor></strong></p><p>Запчасти <strong data-parts></strong></p>
+            <p class="total">Итого <span data-total></span></p>
+            <p data-saved-payment hidden>Оплачено <strong data-order-paid></strong></p>
+            <p data-saved-debt hidden>Остаток долга <strong data-order-debt></strong></p>
+            <button class="action primary" type="submit">Сохранить заказ</button>
+            <button class="action" type="button" data-screen="orders">К списку заказов</button>
+          </aside>
+        </form>
+        <div class="duo" data-order-history hidden>
+          <section class="panel stack">
+            <h2>Платежи по заказу</h2>
+            <form class="stack" data-payment-form>
+              <div class="fields">
+                <label>Сумма платежа, ₽ <input name="amount" inputmode="decimal" required maxlength="12"></label>
+                <label>Комментарий <input name="note" maxlength="300" placeholder="Например, предоплата"></label>
+              </div>
+              <div><button class="action primary" type="submit">Внести платёж</button></div>
+            </form>
+            <div class="record-list" data-order-payments></div>
+          </section>
+          <section class="panel"><h2>История статусов</h2><div class="record-list" data-status-history></div></section>
+        </div>
+      </section>
+      <section class="stack" data-view="client" hidden>
+        <div class="heading"><div><h1>Карточка клиента</h1><p class="muted">Контакты, автомобили и история обслуживания</p></div><label>Выбрать клиента <select data-client-picker></select></label><button class="action primary" type="button" data-add-client>＋ Новый клиент</button></div>
+        <p class="muted" data-empty-client hidden>Клиентов пока нет. Добавьте первого клиента.</p>
+        <div class="duo" data-client-details>
+          <section class="panel">
+            <div class="profile"><span class="avatar" data-initials>КМ</span><div><h2 data-client-name></h2><small data-client-since></small></div></div>
+            <div class="details" data-contact></div>
+            <button class="text-link" type="button" data-edit-client>Изменить контакты</button>
+          </section>
+          <section class="panel"><h2>Автомобили</h2><div data-cars></div></section>
+        </div>
+        <form class="panel stack" data-contact-form hidden>
+              <label>Имя <input name="name" required maxlength="150"></label>
+              <label>Телефон <input name="phone" type="tel" maxlength="40"></label>
+              <label>Электронная почта <input name="email" type="email" maxlength="254"></label>
+              <label>Предпочтение по связи <input name="contactNote" maxlength="500"></label>
+              <button class="action primary" type="submit">Сохранить контакты</button>
+        </form>
+        <section class="panel order-table" data-client-history><div class="panel-head"><h2>История обслуживания</h2><button type="button" class="text-link" data-client-new>＋ Новый заказ</button></div><div data-table="client"></div></section>
+      </section>
+      <section class="stack" data-view="vehicles" hidden>
+        <div class="heading"><h1>Автомобили</h1><button class="action primary" type="button" data-new-vehicle>＋ Автомобиль</button></div>
+        <section class="panel">
+          <form class="filters" data-vehicle-search><label class="search">Поиск<input type="search" name="q" maxlength="150" placeholder="Марка, модель, госномер или VIN"></label><button class="action" type="submit">Найти</button></form>
+          <div class="record-list" data-vehicles></div>
+        </section>
+        <form class="panel stack" data-vehicle-form hidden>
+          <h2 data-vehicle-title>Автомобиль</h2>
+          <div class="fields">
+            <label>Клиент <select name="customerId" required></select></label>
+            <label>Марка <input name="make" maxlength="80"></label>
+            <label>Модель <input name="model" maxlength="150" required></label>
+            <label>Госномер <input name="plate" maxlength="24"></label>
+            <label>VIN <input name="vin" maxlength="17" autocomplete="off"></label>
+          </div>
+          <div><button class="action primary" type="submit">Сохранить автомобиль</button></div>
+        </form>
+        <section class="panel order-table" data-vehicle-history hidden><div class="panel-head"><h2>История автомобиля</h2></div><div data-table="vehicle"></div></section>
+      </section>
+      <section class="stack" data-view="masters" hidden>
+        <div class="heading"><h1>Мастера</h1><button class="action primary" type="button" data-new-master>＋ Мастер</button></div>
+        <section class="panel"><div class="record-list" data-masters></div></section>
+        <form class="panel stack" data-master-form hidden>
+          <h2 data-master-title>Мастер</h2>
+          <div class="fields">
+            <label>Имя мастера <input name="name" maxlength="150" required></label>
+            <label>Телефон <input name="phone" type="tel" maxlength="40"></label>
+            <label>Специализация <input name="specialty" maxlength="150"></label>
+            <label class="check"><input name="active" type="checkbox" checked>Активный мастер</label>
+          </div>
+          <div><button class="action primary" type="submit">Сохранить мастера</button></div>
+        </form>
+        <section class="panel order-table" data-master-history hidden><div class="panel-head"><h2>Заказы мастера</h2></div><div data-table="master"></div></section>
+      </section>
+      <section class="stack" data-view="finance" hidden>
+        <h1>Финансы</h1>
+        <div class="duo">
+          <section class="kpi"><small>Получено платежей</small><strong data-finance-received></strong></section>
+          <section class="kpi"><small>Общая задолженность</small><strong data-finance-debt></strong></section>
+        </div>
+        <section class="panel">
+          <h2>Расчёты по заказам</h2>
+          <form class="filters" data-finance-search>
+            <label class="search">Поиск<input name="q" maxlength="150" type="search" placeholder="Клиент, заказ или автомобиль"></label>
+            <label class="check"><input name="debtors" type="checkbox">Только должники</label>
+            <button class="action" type="submit">Найти</button>
+          </form>
+          <div class="record-list" data-finance-orders></div>
+        </section>
+        <section class="panel"><h2>История оплат</h2><div class="record-list" data-finance-payments></div></section>
+      </section>
+      <section class="stack" data-view="settings" hidden>
+        <h1>Настройки</h1>
+        <form class="panel stack" data-settings-form>
+          <h2>Автосервис</h2>
+          <div class="fields">
+            <label>Название автосервиса <input name="name" maxlength="150" required></label>
+            <label>Телефон <input name="phone" type="tel" maxlength="40"></label>
+            <label class="span">Адрес <input name="address" maxlength="300"></label>
+          </div>
+          <div><button class="action primary" type="submit">Сохранить настройки</button></div>
+        </form>
+        <section class="panel stack">
+          <h2>Резервная копия SQLite</h2>
+          <div><a class="action" href="/api/v1/backup" download>Скачать резервную копию</a></div>
+          <form class="stack" data-backup-form>
+            <label>Файл для восстановления <input type="file" name="backup" accept=".sqlite,.db,.sqlite3" required></label>
+            <div><button class="action" type="submit">Проверить файл</button></div>
+          </form>
+          <p class="muted" data-backup-summary hidden></p>
+          <div><button class="action" type="button" data-restore hidden>Восстановить проверенную копию</button></div>
+        </section>
+      </section>
+    </main>
+  </div>
+</div>
+<script src="/crm.js" defer></script>
+</div>
+<!-- /prototype -->
+</body>
+</html>

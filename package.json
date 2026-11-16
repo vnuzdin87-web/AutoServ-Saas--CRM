@@ -1,0 +1,13 @@
+{
+  "name": "autoservice-crm",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "start": "node server.mjs",
+    "build": "node --check server.mjs && node --check database.mjs && node --check api.mjs && node --check backup.mjs && node --check crm.js",
+    "test": "node --test"
+  }
+}
